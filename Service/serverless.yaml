@@ -1,0 +1,18 @@
+service: svv2-service-api
+
+provider:
+  name: aws
+  region: eu-west-2
+  httpApi:
+    payload: "2.0"
+  lambdaHashingVersion: 20220203
+
+functions:
+  api:
+    runtime: provided.al2
+    package:
+      artifact: dist/Service.zip
+      individually: true
+    handler: required-but-ignored
+    events:
+      - httpApi: "*"
