@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.0.0" />
     <PackageReference Include="DotNetCore.AspNetCore" Version="16.*" />
+    <PackageReference Include="Hackney.Shared.HousingSearch" Version="0.25.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.*" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.6.0" />
   </ItemGroup>

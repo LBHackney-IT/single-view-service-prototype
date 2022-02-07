@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Resolvers;
+using Service.Resolvers;
 
 namespace Service.Test.Resolvers
 {
@@ -11,12 +11,10 @@ namespace Service.Test.Resolvers
         }
 
         [Test]
-        public void Test1()
+        public void TestSearchPerson()
         {
             var obj = new Query();
-
-            Assert.AreEqual(obj.GetMovieById(1)?.Title, "The Rise of the GraphQL Warrior");
-            Assert.Pass();
+            Assert.IsEmpty(obj.SearchAsset());
         }
     }
 }

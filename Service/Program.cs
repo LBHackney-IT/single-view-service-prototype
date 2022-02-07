@@ -1,4 +1,4 @@
-using Resolvers;
+using Service.Resolvers;
 
 var builder = WebApplication.CreateBuilder(args);
 
