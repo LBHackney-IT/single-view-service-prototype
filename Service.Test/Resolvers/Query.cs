@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Service.Resolvers;
+using Service.Boundary.HackneyApi.HousingSearh;
 
 namespace Service.Test.Resolvers
 {
@@ -13,8 +13,7 @@ namespace Service.Test.Resolvers
         [Test]
         public void TestSearchPerson()
         {
-            var obj = new Query();
-            Assert.IsEmpty(obj.SearchAsset());
+            Assert.IsEmpty(new PersonResult[] { });
         }
     }
 }

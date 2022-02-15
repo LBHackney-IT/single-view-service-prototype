@@ -1,28 +1,14 @@
-﻿using Data;
-using Models;
-using System.Security.Claims;
-using Hackney.Shared.HousingSearch.Domain.Asset;
-using Hackney.Shared.HousingSearch.Domain.Person;
-using static System.Runtime.InteropServices.RuntimeInformation;
-using Tenure = Hackney.Shared.HousingSearch.Domain.Tenure.Tenure;
+﻿using static System.Runtime.InteropServices.RuntimeInformation;
 
 namespace Service.Resolvers
 {
     public class Query
     {
-        public List<Person> SearchPerson()
+        public Query()
         {
-            return new List<Person>();
         }
 
-        public List<Tenure> SearchTenure()
-        {
-            return new List<Tenure>();
-        }
-        public List<Asset> SearchAsset()
-        {
-            return new List<Asset>();
-        }
+        public SearchResult Search([Service]ISearch search) => new SearchResult(search);
 
         public string SysInfo =>
             $"{FrameworkDescription} running on {RuntimeIdentifier}";

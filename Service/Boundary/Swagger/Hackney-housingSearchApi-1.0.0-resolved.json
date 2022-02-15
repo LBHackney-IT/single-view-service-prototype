@@ -1,0 +1,1382 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "To search for person, tenure or asset information",
+    "version": "1.0.0",
+    "title": "Housing Search API"
+  },
+  "host": "virtserver.swaggerhub.com",
+  "basePath": "/Hackney/housingSearchApi/1.0.0",
+  "tags": [
+    {
+      "name": "GetAssetList"
+    },
+    {
+      "name": "GetPersonList"
+    },
+    {
+      "name": "GetTenureList"
+    },
+    {
+      "name": "GetTransactionsList"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/search/persons": {
+      "get": {
+        "tags": [
+          "GetPersonList"
+        ],
+        "description": "Retrieve all person information through search",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "isDesc",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved person details upon request",
+            "schema": {
+              "$ref": "#/definitions/personResult"
+            }
+          },
+          "404": {
+            "description": "Person not found"
+          }
+        }
+      }
+    },
+    "/search/tenures": {
+      "get": {
+        "tags": [
+          "GetTenureList"
+        ],
+        "description": "Retrieve all tenure information through search",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved tenure details upon request",
+            "schema": {
+              "$ref": "#/definitions/tenureResult"
+            }
+          },
+          "404": {
+            "description": "Tenure not found"
+          }
+        }
+      }
+    },
+    "/search/assets": {
+      "get": {
+        "tags": [
+          "GetAssetList"
+        ],
+        "description": "Retrieve all asset information through search",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "assetTypes",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "LettableNonDwelling",
+              "Dwelling",
+              "Estate",
+              "..."
+            ]
+          },
+          {
+            "name": "propertyReference",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved asset details upon request",
+            "schema": {
+              "$ref": "#/definitions/assetResult"
+            }
+          },
+          "404": {
+            "description": "Asset not found"
+          }
+        }
+      }
+    },
+    "/search/transactions": {
+      "get": {
+        "tags": [
+          "GetTransactionsList"
+        ],
+        "description": "Paginated search for transactions based on searchText",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Some search phrase. one of the searchText or the targetid should'nt be null or empty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "targetId",
+            "in": "query",
+            "description": "Some search phrase. one of the searchText or the targetid should'nt be null or empty",
+            "required": false,
+            "type": "string",
+            "format": "Guid"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size. Default value is 12",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start date of the period to load transactions",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date of the period to load transactions",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "isSuspense",
+            "in": "query",
+            "description": "Flag that determines whether to return only suspense transactions",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved asset details upon request",
+            "schema": {
+              "$ref": "#/definitions/transactionsResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "personResult": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "$ref": "#/definitions/personResult_results"
+        },
+        "total": {
+          "type": "integer",
+          "example": 100
+        }
+      }
+    },
+    "persons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/personData"
+      }
+    },
+    "personData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "6f22e9ae3e8a4e0eaf46db02eb87f8e6"
+        },
+        "title": {
+          "type": "string",
+          "example": "Mrs"
+        },
+        "firstname": {
+          "type": "string",
+          "example": "Julie"
+        },
+        "middleName": {
+          "type": "string",
+          "example": ""
+        },
+        "surname": {
+          "type": "string",
+          "example": "Evans"
+        },
+        "preferredFirstname": {
+          "type": "string"
+        },
+        "preferredSurname": {
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date",
+          "example": "1990-02-19"
+        },
+        "totalBalance": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "personTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "HousingOfficer",
+              "HouseholdMember",
+              "Freeholder",
+              "Resident",
+              "Tenant"
+            ]
+          }
+        },
+        "IsPersonCautionaryAlerted": {
+          "type": "boolean"
+        },
+        "IsTenureCautionaryAlerted": {
+          "type": "boolean"
+        },
+        "tenures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/personTenures"
+          }
+        }
+      }
+    },
+    "personTenures": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string",
+          "example": "secure"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "dateTime"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "dateTime"
+        },
+        "assetFullAddress": {
+          "type": "string",
+          "example": "Apartment 22, 18 G road, SW11"
+        },
+        "totalBalance": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "postCode": {
+          "type": "string"
+        },
+        "paymentReference": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "tenureResult": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "$ref": "#/definitions/tenureResult_results"
+        },
+        "total": {
+          "type": "integer",
+          "example": 100
+        }
+      }
+    },
+    "tenures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tenureData"
+      }
+    },
+    "tenureData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "GUID",
+          "example": "0bb55bde-bc73-d7fe-0324-5cee5b59bc8c"
+        },
+        "paymentReference": {
+          "type": "string",
+          "example": "1234567890"
+        },
+        "householdMembers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/householdMembers"
+          }
+        },
+        "tenuredAsset": {
+          "$ref": "#/definitions/tenuredAsset"
+        },
+        "startOfTenureDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2008-01-05"
+        },
+        "endOfTenureDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2010-10-01"
+        },
+        "tenureType": {
+          "$ref": "#/definitions/tenureType"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": false,
+          "description": "This is a calculated field"
+        }
+      }
+    },
+    "householdMembers": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "GUID",
+          "example": "dcdda18b-4ee9-fbcc-bf8d-e000af6ad474"
+        },
+        "type": {
+          "type": "string",
+          "example": "person",
+          "enum": [
+            "person",
+            "organisation"
+          ]
+        },
+        "fullName": {
+          "type": "string",
+          "example": "Joan Fisher"
+        },
+        "isResponsible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "tenuredAsset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "GUID",
+          "example": "2af04586-0b92-4117-2a27-a689b5249f18"
+        },
+        "type": {
+          "type": "string",
+          "example": "dwelling"
+        },
+        "fullAddress": {
+          "type": "string",
+          "example": "23 Redwald Road, E5 0JG"
+        },
+        "uprn": {
+          "type": "string",
+          "example": "100021032412"
+        }
+      }
+    },
+    "tenureType": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "SEC"
+        },
+        "description": {
+          "type": "string",
+          "example": "Secure"
+        }
+      }
+    },
+    "assetResult": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "$ref": "#/definitions/assetResult_results"
+        },
+        "total": {
+          "type": "integer",
+          "example": 100
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assetData"
+      }
+    },
+    "assetData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "GUID",
+          "example": "986a2a9e-9eb4-0966-120a-238689e3e265"
+        },
+        "assetId": {
+          "type": "string",
+          "example": "00054374"
+        },
+        "assetType": {
+          "type": "string",
+          "enum": [
+            "LettableNonDwelling",
+            "Dwelling",
+            "Estate",
+            "..."
+          ]
+        },
+        "assetAddress": {
+          "$ref": "#/definitions/assetAddress"
+        },
+        "tenure": {
+          "$ref": "#/definitions/assetTenure"
+        },
+        "isAssetCautionaryAlerted": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "assetAddress": {
+      "type": "object",
+      "properties": {
+        "uprn": {
+          "type": "string",
+          "example": "100021065786"
+        },
+        "addressLine1": {
+          "type": "string",
+          "example": "Powell Road"
+        },
+        "addressLine2": {
+          "type": "string",
+          "example": "Hackney"
+        },
+        "addressLine3": {
+          "type": "string",
+          "example": "London"
+        },
+        "addressLine4": {
+          "type": "string",
+          "example": ""
+        },
+        "postCode": {
+          "type": "string",
+          "example": "E5 8DH"
+        },
+        "postPreamble": {
+          "type": "string",
+          "example": "1 Newcome House"
+        }
+      }
+    },
+    "assetTenure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "0bb55bde-bc73-d7fe-0324-5cee5b59bc8c"
+        },
+        "paymentReference": {
+          "type": "string",
+          "example": "228008546"
+        },
+        "type": {
+          "type": "string",
+          "example": "SECURE"
+        },
+        "startOfTenureDate": {
+          "type": "string",
+          "format": "dateTime",
+          "example": "2004-09-16"
+        },
+        "endOfTenureDate": {
+          "type": "string",
+          "format": "dateTime",
+          "example": "2021-08-03"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true,
+          "description": "API calculated field"
+        },
+        "propertyReference": {
+          "type": "string"
+        }
+      }
+    },
+    "transaction": {
+      "type": "object",
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "format": "Guid",
+          "example": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e"
+        },
+        "periodNo": {
+          "type": "integer",
+          "format": "short",
+          "example": 2,
+          "description": "this will be Week number for rent & Period number for LH"
+        },
+        "financialYear": {
+          "type": "integer",
+          "example": 2020
+        },
+        "financialMonth": {
+          "type": "integer",
+          "example": 1,
+          "description": "This will be fetched from the TransationDate for a faster querying purposes"
+        },
+        "transactionSource": {
+          "type": "string",
+          "example": "DD"
+        },
+        "transactionType": {
+          "type": "string",
+          "example": "Rent",
+          "enum": [
+            "Rent",
+            "Charge"
+          ]
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "Date",
+          "example": "2021-04-27T23:00:00.000Z"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 87.53
+        },
+        "paymentReference": {
+          "type": "string",
+          "example": "217005",
+          "description": "This is same as the Rent Account Number"
+        },
+        "bankAccountNumber": {
+          "type": "string",
+          "example": "******78"
+        },
+        "sortCode": {
+          "type": "string",
+          "example": "1234-5678\""
+        },
+        "isSuspense": {
+          "type": "boolean",
+          "example": false
+        },
+        "suspenseResolutionInfo": {
+          "$ref": "#/definitions/transaction_suspenseResolutionInfo"
+        },
+        "paidAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 785.11
+        },
+        "chargedAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 1243.89
+        },
+        "balanceAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 785.56
+        },
+        "housingBenefitAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 785.71
+        },
+        "address": {
+          "type": "string",
+          "example": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND"
+        },
+        "person": {
+          "$ref": "#/definitions/transaction_person"
+        },
+        "fund": {
+          "type": "string",
+          "example": "HSGSUN"
+        }
+      }
+    },
+    "transactionsResponse": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "example": [
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            },
+            {
+              "id": "74c5fbc4-2fc8-40dc-896a-0cfa67fc183e",
+              "targetId": "6a97c6b5-2b75-4342-8ae4-2e975dc0d03a",
+              "periodNo": 2,
+              "financialYear": 2000,
+              "financialMonth": 1,
+              "transactionSource": "DD",
+              "transactionType": "Rent",
+              "transactionDate": "2021-04-27T23:00:00.000Z",
+              "transactionAmount": 87.53,
+              "paymentReference": 217005,
+              "bankAccountNumner": "******78",
+              "sortCode": "12324-5678",
+              "paidAmount": 87.53,
+              "chargedAmount": 87.53,
+              "balanceAmount": 1025,
+              "housingBenefitAmount": 25.56,
+              "address": "15 Macron Court, Amhurst Rd, Hackney, London, E8 1ND",
+              "person": {
+                "id": "8b5cbc60-9cb3-4de2-8ebb-f834e7827a6a",
+                "fullName": "Kian Hayward"
+              },
+              "fund": "HSGSUN",
+              "isSuspense": true,
+              "suspenseResolutionInfo": {
+                "isResolve": false
+              }
+            }
+          ],
+          "items": {
+            "$ref": "#/definitions/transaction"
+          }
+        },
+        "total": {
+          "type": "number",
+          "example": 10
+        }
+      }
+    },
+    "personResult_results": {
+      "type": "object",
+      "properties": {
+        "persons": {
+          "$ref": "#/definitions/persons"
+        }
+      }
+    },
+    "tenureResult_results": {
+      "type": "object",
+      "properties": {
+        "tenures": {
+          "$ref": "#/definitions/tenures"
+        }
+      }
+    },
+    "assetResult_results": {
+      "type": "object",
+      "properties": {
+        "assets": {
+          "$ref": "#/definitions/assets"
+        }
+      }
+    },
+    "transaction_suspenseResolutionInfo": {
+      "type": "object",
+      "properties": {
+        "resolutionDate": {
+          "type": "string",
+          "format": "Date",
+          "example": "2021-04-27T23:00:00.000Z"
+        },
+        "isResolve": {
+          "type": "boolean",
+          "example": true
+        },
+        "note": {
+          "type": "string",
+          "example": "string"
+        }
+      },
+      "x-nullable": true
+    },
+    "transaction_person": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "Guid",
+          "example": "b43114b1-50e1-43fc-9cdb-0bbbc1892ce9"
+        },
+        "fullName": {
+          "type": "string",
+          "example": "Kian Hayward"
+        }
+      }
+    }
+  }
+}
