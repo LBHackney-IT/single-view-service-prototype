@@ -36,22 +36,22 @@
   </ItemGroup>
 
   <ItemGroup Label="FromSwagger">
-	  <Compile Update="Boundary\HackeneyApi\HousingSearh.cs">
-		  <AutoGen>true</AutoGen>
-		  <DependentUpon>Boundary\Swagger\Hackney-housingSearchApi-1.0.0-resolved.json</DependentUpon>
-	  </Compile>
+    <Compile Update="Boundary\HackeneyApi\HousingSearh.cs">
+      <AutoGen>true</AutoGen>
+      <DependentUpon>Boundary\Swagger\Hackney-housingSearchApi-1.0.0-resolved.json</DependentUpon>
+    </Compile>
   </ItemGroup>
 
-	<ItemGroup>
-		<Compile Update="Boundary\HackeneyApi\HousingSearh.cs">
-			<DependentUpon>Boundary\Swagger\Hackney-housingSearchApi-1.0.0-resolved.json</DependentUpon>
-		</Compile>
-		<Compile Update="Boundary\HackeneyApi\Person.cs">
-			<DependentUpon>Boundary\Swagger\Hackney-personAPI-1.0.0-resolved.json</DependentUpon>
-		</Compile>
-	</ItemGroup>
+  <ItemGroup>
+    <Compile Update="Boundary\HackeneyApi\HousingSearh.cs">
+      <DependentUpon>Boundary\Swagger\Hackney-housingSearchApi-1.0.0-resolved.json</DependentUpon>
+    </Compile>
+    <Compile Update="Boundary\HackeneyApi\Person.cs">
+      <DependentUpon>Boundary\Swagger\Hackney-personAPI-1.0.0-resolved.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-	<ItemGroup>
+  <ItemGroup>
     <Compile Update="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -65,10 +65,9 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-	<Target Name="SwaggerGen" BeforeTargets="Compile">
-		<MakeDir Directories="Boundary\HackneyApi"></MakeDir>
-		<Exec Command="$(NSwagExe) swagger2csclient /input:Boundary\Swagger\Hackney-housingSearchApi-1.0.0-resolved.json /classname:Client /namespace:Service.Boundary.HackneyApi.HousingSearh /output:Boundary\HackneyApi\HousingSearh.cs"></Exec>
-		<Exec Command="$(NSwagExe) swagger2csclient /input:Boundary\Swagger\Hackney-personAPI-1.0.0-resolved.json /classname:Client /namespace:Service.Boundary.HackneyApi.Person /output:Boundary\HackneyApi\Person.cs"></Exec>
-	</Target>
+  <Target Name="SwaggerGen" BeforeTargets="Compile" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <MakeDir Directories="Boundary\HackneyApi"></MakeDir>
+    <Exec Command="$(NSwagExe) swagger2csclient /input:Boundary\Swagger\Hackney-housingSearchApi-1.0.0-resolved.json /classname:Client /namespace:Service.Boundary.HackneyApi.HousingSearh /output:Boundary\HackneyApi\HousingSearh.cs"></Exec>
+    <Exec Command="$(NSwagExe) swagger2csclient /input:Boundary\Swagger\Hackney-personAPI-1.0.0-resolved.json /classname:Client /namespace:Service.Boundary.HackneyApi.Person /output:Boundary\HackneyApi\Person.cs"></Exec>
+  </Target>
 </Project>

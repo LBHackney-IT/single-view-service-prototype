@@ -3,6 +3,8 @@ service: svv2-service-api
 provider:
   name: aws
   region: eu-west-2
+  stage: ${opt:stage}
+  timeout: 15
   httpApi:
     payload: "2.0"
   lambdaHashingVersion: 20220203
@@ -16,3 +18,9 @@ functions:
     handler: required-but-ignored
     events:
       - httpApi: "*"
+    environment:
+      HackneyApi__HousingSearchAPI: ${ssm:/single-view-service-prototype/${self:provider.stage}/HousingSearchAPI}
+      HackneyApi__PersonAPI: ${ssm:/single-view-service-prototype/${self:provider.stage}/PersonAPI}
+      HackneyApi__AssetAPI: ${ssm:/single-view-service-prototype/${self:provider.stage}/AssetAPI}
+      HackneyApi__TenureInformationApi: ${ssm:/single-view-service-prototype/${self:provider.stage}/TenureInformationApi}
+      HackneyApi__ContactDetailsApi: ${ssm:/single-view-service-prototype/${self:provider.stage}/ContactDetailsApi}
