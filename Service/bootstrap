@@ -1,0 +1,2 @@
+﻿#!/bin/bash
+exec ${LAMBDA_TASK_ROOT}/Service
